@@ -18,7 +18,7 @@ def just():
     data = request.json
     img = np.array(data['img'])
 
-    pridict_image = leaf_deases_model.predict(img.reshape((1,) + img.shape ))
+    pridict_image = trained_model.h5.predict(img.reshape((1,) + img.shape ))
 
     return jsonify({"Label Name":label_name[np.argmax(pridict_image)],
                   "Accuracy": pridict_image[0][np.argmax(pridict_image)]*100})
