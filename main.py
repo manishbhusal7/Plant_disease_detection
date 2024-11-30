@@ -19,6 +19,9 @@ body {
     background-color: #f0f0f0 !important;
     color: #000000 !important;
 }
+h1, h2, h3 {
+    color: #2c3e50 !important;
+}
 </style>
 """
 
@@ -36,6 +39,9 @@ body {
     background-color: #2e2e2e !important;
     color: #ffffff !important;
 }
+h1, h2, h3 {
+    color: #ecf0f1 !important;
+}
 </style>
 """
 
@@ -48,19 +54,33 @@ if mode == "Dark Mode":
 else:
     st.markdown(LIGHT_MODE_CSS, unsafe_allow_html=True)
 
+# Add a header banner with a placeholder plant image
+st.image(
+    "https://via.placeholder.com/1000x300.png?text=Plant+Disease+Detection",
+    caption="🌱 Transforming Agriculture with AI",
+    use_column_width=True,
+)
+
 # Title and Description
 st.title("🌱 Plant Disease Detection")
-st.write(
-    """This leaf disease detection model uses deep learning techniques and transfer learning to identify plant diseases.
-    It is trained on a dataset with 33 different types of leaf diseases."""
+st.markdown(
+    """
+    ### Welcome to Plant Disease Detection App
+    This tool uses cutting-edge **deep-learning techniques** to identify plant diseases 
+    from leaf images. It's trained on a dataset featuring different plant diseases**, 
+    ensuring accurate and reliable predictions.
+    """
 )
-st.warning(
-    "⚠️ Please upload leaf images of Apple, Cherry, Corn, Grape, Peach, Pepper, Potato, Strawberry, or Tomato. "
-    "Other images may not yield accurate results."
+
+st.info(
+    """
+    ⚠️ **Note:** Please upload clear leaf images of **Apple, Cherry, Corn, Grape, Peach, Pepper, Potato, Strawberry, or Tomato**.
+    Images of other plants may not yield accurate results.
+    """
 )
 
 # Load the pre-trained model
-model = keras.models.load_model('Trained_model.h5')
+model = keras.models.load_model('trained_model.h5')
 
 # Define the list of class labels
 label_name = [
@@ -77,7 +97,7 @@ label_name = [
 ]
 
 # File uploader for input images
-uploaded_file = st.file_uploader("Upload a leaf image:")
+uploaded_file = st.file_uploader("🌿 Upload a leaf image to detect disease:")
 if uploaded_file is not None:
     # Read the uploaded image
     image_bytes = uploaded_file.read()
@@ -95,6 +115,12 @@ if uploaded_file is not None:
     
     # Display the result
     if confidence >= 80:
-        st.success(f"✅ Result: {label_name[np.argmax(predictions)]} (Confidence: {confidence:.2f}%)")
+        st.success(f"✅ **Prediction:** {label_name[np.argmax(predictions)]} (Confidence: {confidence:.2f}%)")
     else:
         st.warning("⚠️ The model is not confident in its prediction. Please try another image.")
+else:
+    st.image(
+        "https://via.placeholder.com/500x300.png?text=Upload+Your+Leaf+Image+Here",
+        caption="Upload a leaf image to start detecting diseases!",
+        use_column_width=True,
+    )
