@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from tensorflow.keras.models import load_model
 import numpy as np
 
-leaf_deases_model = load_model('/home/shukur/Documents/Python Code/Tree Deases/Leaf_Deases(95,88).h5')
+leaf_deases_model = load_model('/trained_model.h5')
 
 label_name = ['Apple scab','Apple Black rot', 'Apple Cedar apple rust', 'Apple healthy', 'Cherry Powdery mildew',
 'Cherry healthy','Corn Cercospora leaf spot Gray leaf spot', 'Corn Common rust', 'Corn Northern Leaf Blight','Corn healthy', 
